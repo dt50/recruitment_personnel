@@ -9,7 +9,7 @@ from .forms import RegistrationForm, LoginForm
 from .models import Profile
 
 
-def register(request):
+'''def register(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
 
@@ -41,7 +41,7 @@ def register(request):
         form = RegistrationForm()
 
     context = {"form": form}
-    return render(request, "users/register.html", context)
+    return render(request, "users/register.html", context)'''
 
 
 def login_view(request):
@@ -57,17 +57,17 @@ def login_view(request):
                     login(request, user=user)
                     return redirect(reverse_lazy("quizes:main-view"))
             else:
-                error_text = "<ul><li>Неправильный логин или пароль</li></ul>"
+                error_text = "<label class='form-label error-form'>Неправильный логин или пароль</label>"
                 messages.error(request, mark_safe(error_text))
     else:
         form = LoginForm()
 
     context = {"form": form}
-    return render(request, "users/login.html", context)
+    return render(request, "profiles/login.html", context)
 
 
 class Profiles(ListView):
     model = Profile
-    template_name = "profiles/profiles.html"
+    template_name = "profiles/accounts.html"
     context_object_name = "profile_list"
     paginate_by = 12

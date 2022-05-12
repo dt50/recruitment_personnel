@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Аккаунты</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top shadow">
+        <div class="container navbar-container"><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse me-auto" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Логин</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Пользователи</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">О Сайте</a></li>
+                </ul>
+            </div><a class="login-button" href="login.html"><button class="align-self-start btn btn-primary" type="submit">Войти</button></a>
+        </div>
+    </nav>
+    <h3 class="text-center mt-5 border-bottom pt-5 pb-4 shadow-sm">Пользователи</h3>
+
+    {% if profile_list %}
+    <div class="container item-block my-2 p-4 col-11 col-sm-8 border rounded-3">
+        {% for profile in profile_list %}
+        <a class="account-card" href="single-account.html">
+            <div class="card m-2">
+                <img class="card-img-top" src="{{ profile.photo.url }}" />
+                <div class="card-body">
+                    <div class="h5 card-title">{{ profile.last_name }} {{ profile.first_name }} {{ profile.father_name }}</div>
+                    <p class="card-text">Бухгалтер</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if is_paginated %}
+    <div class="container mb-5 col-12 col-sm-8">
+        <ul class="pagination flex-wrap justify-content-center pb-5">
+
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="/profile/profiles?page={{ page_obj.previous_page_number }}">Назад</a></li>
+            {% endif %}
+
+            {% for page in paginator.page_range %}
+                {% if page_obj.number == page %}
+                    <li class="page-item active"><a class="page-link" href="/profile/profiles?page={{ page }}" disabled>{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-l ink" href="/profile/profiles?page={{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="/profile/profiles?page={{ page_obj.next_page_number }}">Вперёд</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+    {% endif %}
+
+    <div>
+    </div>
+</body>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</html>

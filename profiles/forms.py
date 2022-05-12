@@ -49,14 +49,14 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         label="Username",
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Username"}
+            attrs={"class": "form-control login-form", "placeholder": "Логин", 'type': 'login'}
         ),
     )
 
     password = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": "Password"}
+            attrs={"class": "form-control pswd-form", "placeholder": "Пароль", 'type': 'password'}
         ),
     )
 

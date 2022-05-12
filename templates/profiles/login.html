@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Логин</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top shadow">
+        <div class="container navbar-container"><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse me-auto" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Логин</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Пользователи</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">О Сайте</a></li>
+                </ul>
+            </div><a class="login-button" href="login.html"><button class="align-self-start btn btn-primary" type="submit">Войти</button></a>
+        </div>
+    </nav>
+    <div class="py-5"></div>
+    <div class="container form-container col-lg-3 col-md-5 col-sm-6 col-6 p-4 border shadow rounded-3">
+        <form>
+            <h3>Вход</h3>
+            <div class="my-3"><input class="form-control login-form" type="login" placeholder="Логин"></div>
+            <div class="my-3">{{ form.username }}</div>
+            <div class="my-3"><input class="form-control pswd-form" type="password" placeholder="Пароль"></div>
+            <div class="my-3">{{ form.password }}</div>
+
+            {% if messages %}
+                <div id="my-3 text-center">
+                    {% for message in messages %}
+                            {{ message|safe }}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div id="my-3 text-center"></div>
+            {% endif %}
+
+            <div class="my-3"><button class="btn btn-primary mx-auto d-block" type="submit">Войти</button></div>
+        </form>
+    </div>
+    <div></div>
+</body>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</html>
