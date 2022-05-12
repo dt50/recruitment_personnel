@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.utils.safestring import mark_safe
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .forms import RegistrationForm, LoginForm
 from .models import Profile
@@ -55,7 +55,7 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user=user)
-                    return redirect(reverse_lazy("quizes:main-view"))
+                    return redirect(reverse_lazy("profiles:profiles_list"))
             else:
                 error_text = "<label class='form-label error-form'>Неправильный логин или пароль</label>"
                 messages.error(request, mark_safe(error_text))
@@ -66,8 +66,14 @@ def login_view(request):
     return render(request, "profiles/login.html", context)
 
 
-class Profiles(ListView):
+class ProfilesList(ListView):
     model = Profile
     template_name = "profiles/accounts.html"
     context_object_name = "profile_list"
-    paginate_by = 12
+    paginate_by = 10
+
+
+class ProfileDetail(DetailView):
+    model = Profile
+    template_name = 'profiles/single-account.html'
+    context_object_name = 'profile'

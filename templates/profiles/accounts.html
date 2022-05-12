@@ -24,7 +24,7 @@
     {% if profile_list %}
     <div class="container item-block my-2 p-4 col-11 col-sm-8 border rounded-3">
         {% for profile in profile_list %}
-        <a class="account-card" href="single-account.html">
+        <a class="account-card" href={% url 'profiles:profile_detail' profile.pk %}>
             <div class="card m-2">
                 <img class="card-img-top" src="{{ profile.photo.url }}" />
                 <div class="card-body">
@@ -49,7 +49,7 @@
                 {% if page_obj.number == page %}
                     <li class="page-item active"><a class="page-link" href="/profile/profiles?page={{ page }}" disabled>{{ page }}</a></li>
                 {% else %}
-                    <li class="page-item"><a class="page-l ink" href="/profile/profiles?page={{ page }}">{{ page }}</a></li>
+                    <li class="page-item"><a class="page-link" href="/profile/profiles?page={{ page }}">{{ page }}</a></li>
                 {% endif %}
             {% endfor %}
 

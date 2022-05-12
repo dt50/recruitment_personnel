@@ -1,8 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Просмотр Аккаунта</title>
 </head>
 <body>
@@ -17,43 +18,45 @@
                 </ul>
             </div>
             <!--a(href="login.html").login-button//button(type="submit").align-self-start.btn.btn-primary Войти-->
-            <div class="current-user ms-auto">Дмитрий<button class="btn btn-dark ms-3" type="submit">Выйти</button></div>
+            {% if user.is_authenticated %}
+                <div class="current-user ms-auto">{{ user }}<button class="btn btn-dark ms-3" type="submit">Выйти</button></div>
+            {% endif %}
         </div>
     </nav>
     <div class="p-3"></div>
     <div class="container border my-5 col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-7">
         <div class="row">
             <div class="col-md-5 border-end p-lg-5 card-left-side">
-                <div class="image my-2"><img class="w-100" src="images/person_2.jpg"></div>
+                <div class="image my-2"><img class="w-100" src="{{ profile.photo.url }}"></div>
                 <div class="px-2 p-lg-0">
-                    <div class="display-6 country">Россия</div>
-                    <p class="region">Красноярский край</p>
-                    <p class="lead city">Красноярск</p>
-                    <p class="phone">Телефон: 8 909 456 45 65</p>
+                    <div class="display-6 country">{{ profile.country }}</div>
+                    <p class="region">{{ profile.region }}</p>
+                    <p class="lead city">{{ profile.city }}</p>
+                    <p class="phone">{{ profile.phone }}</p>
                 </div>
             </div>
             <div class="col-md-7 p-5">
-                <div class="h2 full-name">Жанна Игоревна Дарк</div>
+                <div class="h2 full-name">{{ profile.last_name }} {{ profile.first_name }} {{ profile.father_name }}</div>
                 <div class="text-end">
                     <div class="col-8 border-bottom ms-auto my-3"></div>
-                    <div class="h4 age">28 лет</div>
-                    <div class="h5 login">Логин: JuanD</div>
-                    <div class="h5 email">Email: JuanD@gmail.com</div>
+                    <div class="h4 age">Возраст: {{ profile.years_old }}</div>
+                    <div class="h5 login">Логин: {{ profile.login }}</div>
+                    <div class="h5 email">Email: {{ profile.email }}</div>
                     <div class="col-8 border-bottom ms-auto my-3"></div>
                 </div>
-                <p class="inn">ИНН: 7801564782</p>
-                <p class="oms">ОМС: 0000 0000 0000 0000</p>
+                <p class="inn">ИНН: {{ profile.inn_fiz }}</p>
+                <p class="oms">ОМС: {{ profile.oms }}</p>
                 <div class="col-11 col-md-12 col-lg-11 col-xl-10 border rounded-1 p-3 passport-card">
-                    <p class="passport float-end mt-2">45 07 123456</p>
-                    <p class="h4">Паспорт</p><label class="form-label">Паспорт выдан: </label><textarea class="form-control passport-otdel text-uppercase" type="passport-otdel" rows="6">Паспортно-визовым отделением овд пресненского района УВД ЦАО города Москвы</textarea>
-                    <p class="passport-date">Дата выдачи: 15.12.2014</p>
-                    <p class="birthday">Дата рождения: 12.09.1996</p>
+                    <p class="passport float-end mt-2">{{ profile.pasportNum}} {{ profile.pasportCode }}</p>
+                    <p class="h4">Паспорт</p><label class="form-label">Паспорт выдан: </label><textarea class="form-control passport-otdel text-uppercase" type="passport-otdel" rows="6">{{ profile.pasportOtd}}</textarea>
+                    <p class="passport-date">Дата выдачи: {{ profile.pasportDate }}</p>
+                    <p class="birthday">Дата рождения: {{ profile.date_of_birth }}</p>
                 </div>
             </div>
         </div>
     </div>
     <div></div>
 </body>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 </html>

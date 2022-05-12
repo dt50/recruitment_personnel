@@ -17,8 +17,20 @@ class Profile(models.Model):
     date_of_birth = models.DateField(default=datetime.now)
     years_old = models.IntegerField(default=0)
     phone = PhoneNumberField(default="Phone number")
+    login = models.CharField(max_length=30, default="login")
     email = models.EmailField(default="Mail address")
+    pasportNum = models.CharField(max_length=15, default="Pasport num")
+    pasportCode = models.CharField(max_length=15, default="Pasport code")
+    pasportOtd = models.CharField(max_length=50, default="Pasport otd")
+    pasportDate = models.CharField(max_length=15, default="Pasport date")
+    inn_fiz = models.CharField(max_length=15, default="inn")
+    oms = models.CharField(max_length=15, default="oms")
+    address = models.CharField(max_length=50, default="Address")
+    country = models.CharField(max_length=50, default="Country")
+    region = models.CharField(max_length=50, default="Region")
+    city = models.CharField(max_length=50, default="City")
     photo = models.ImageField(upload_to="personnel_photos")
+
 
     def __str__(self):
         return f"Profile of the {self.user.username}"

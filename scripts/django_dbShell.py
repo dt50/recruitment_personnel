@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
+from django.conf import settings
 
 import sqlite3
 
 from datetime import datetime
 
 with sqlite3.connect(
-    "/Users/dt50/Projects/recruitment_personnel/recruitment_personnel/company_archive/db.sqlite"
+    settings.BASE_DIR / "company_archive" / "db.sqlite"
 ) as conn:
     cur = conn.cursor()
     cur.execute("SELECT Login FROM Person")

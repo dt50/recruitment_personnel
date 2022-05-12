@@ -16,10 +16,11 @@ def find_one(username):
         cur = conn.cursor()
 
         cur.execute(
-            f"SELECT LastName, FirstName, FatherName, DateOfBirth, YearsOld, Phone, Email, Photo FROM Person WHERE Login = '{username}'"
+            f"SELECT LastName, FirstName, FatherName, DateOfBirth, YearsOld, Phone, Login,  Email, PasportNum, PasportCode, PasportOtd, PasportDate, inn_fiz, oms, Address, Country, Region, City, Photo FROM Person WHERE Login = '{username}'"
         )
 
         row = cur.fetchall()
+
         cur.close()
 
     return row
@@ -31,21 +32,23 @@ def post_save_create_profile(sender, instance, created, **kwargs):
         if instance.is_superuser == 1:
             profile = Profile.objects.create(user=instance)
             profile.photo.save(
-                "1*rwKSSC1i2XjE4L5zbKUA5w.png",
+                "admin_photo.png",
                 ImageFile(
                     open(
                         str(
                             settings.BASE_DIR
                             / "company_archive"
                             / "fake_photos"
-                            / "1*rwKSSC1i2XjE4L5zbKUA5w.png"
+                            / "admin_photo.png"
                         ),
                         "rb",
                     )
                 ),
             )
         else:
-            info = find_one(instance.username)[0]
+            info = find_one(instance.username)
+            info = info[0]
+
             profile = Profile.objects.create(
                 user=instance,
                 last_name=info[0],
@@ -54,17 +57,28 @@ def post_save_create_profile(sender, instance, created, **kwargs):
                 date_of_birth=datetime.strptime(info[3], "%d.%m.%Y"),
                 years_old=info[4],
                 phone=info[5],
-                email=info[6],
+                login=info[6],
+                email=info[7],
+                PasportNum=info[8],
+                PasportCode=info[9],
+                PasportOtd=info[10],
+                PasportDate=info[11],
+                inn_fiz=info[12],
+                oms=info[13],
+                Address=info[14],
+                Country=info[15],
+                Region=info[16],
+                City=info[17],
             )
             profile.photo.save(
-                info[7],
+                info[18],
                 ImageFile(
                     open(
                         str(
                             settings.BASE_DIR
                             / "company_archive"
                             / "fake_photos"
-                            / info[7]
+                            / info[18]
                         ),
                         "rb",
                     )
