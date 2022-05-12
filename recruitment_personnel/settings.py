@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'questions',
     'quizes',
     'results',
+    'department',
     'phonenumber_field'
 ]
 

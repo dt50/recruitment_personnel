@@ -1,8 +1,12 @@
-from .models import Profile
-from django.contrib.auth.models import User
+# Django
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
+
+# Models
+from .models import Profile
+from django.contrib.auth.models import User
+from department.models import Departments, Positions
 
 import sqlite3
 from datetime import datetime
@@ -84,3 +88,17 @@ def post_save_create_profile(sender, instance, created, **kwargs):
                     )
                 ),
             )
+
+
+@receiver(post_save, sender=Profile)
+def post_save_update_department(sender, instance, created, **kwargs):
+    if instance.department and instance.position:
+        dep = Departments.objects.get(department_name=instance.department)
+        pos = Positions.objects.get(position=instance.position)
+        if dep.count_person < dep.MAX_PERSON and pos.count_person < pos.MAX_PERSON:
+            dep.count_person += 1
+            dep.save()
+            pos.count_person += 1
+            pos.save()
+        else:
+            instance.position = None
