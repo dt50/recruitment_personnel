@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+          border-collapse: collapse;
+          border: 1px solid black;
+        }
+
+        th, td {
+          padding: 8px;
+        }
+        .cell-highlight {
+          background-color: gold;
+          font-weight: bold;
+        }
+        html, body { margin: 0; padding: 0; }
+        div { margin: 5px; text-align: center; }
+        #box { position: absolute; width: 200px; }
+        #left { position: absolute; }
+        #right { position: relative; float: right; }
+    </style>
+</head>
+<body>
+    <div id="'box">
+        <div id="left">
+            <table>
+                <tr>
+                    <th>№</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Отдел</th>
+                    <th>Стаж</th>
+                    <th>Стаж в компании</th>
+                    <th>Возраст</th>
+                    <th>Профильное образование</th>
+                    <th>Часы доп курсов</th>
+                    <th>Выговоры</th>
+                </tr>
+
+                {% for num, items in query_results %}
+                    {% for item in items %}
+                        {% if item in choose %}
+                            <tr>
+                                <td>{{ num }}</td>
+                                <td class="cell-highlight">{{ item.first_name }}</td>
+                                <td class="cell-highlight">{{ item.last_name }}</td>
+                                <td class="cell-highlight">{{ item.position }}</td>
+                                <td class="cell-highlight">{{ item.seniority }}</td>
+                                <td class="cell-highlight">{{ item.company_seniority }}</td>
+                                <td class="cell-highlight">{{ item.years_old }}</td>
+                                <td class="cell-highlight">{{ item.specialized_education }}</td>
+                                <td class="cell-highlight">{{ item.additional_courses }}</td>
+                                <td class="cell-highlight">{{ item.reprimands }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                            <td>{{ num }}</td>
+                                <td>{{ item.first_name }}</td>
+                                <td>{{ item.last_name }}</td>
+                                <td>{{ item.position }}</td>
+                                <td>{{ item.seniority }}</td>
+                                <td>{{ item.company_seniority }}</td>
+                                <td>{{ item.years_old }}</td>
+                                <td>{{ item.specialized_education }}</td>
+                                <td>{{ item.additional_courses }}</td>
+                                <td>{{ item.reprimands }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+
+        <div id="right">
+            <table>
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Текущий Отдел</th>
+                    <th> </th>
+                </tr>
+                    {% for item in choose %}
+                        <tr>
+                            <td class="cell-highlight">{{ item.first_name }}</td>
+                            <td class="cell-highlight">{{ item.last_name }}</td>
+                            <td class="cell-highlight">{{ new_pos }}</td>
+                            <td>&#9989;</td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

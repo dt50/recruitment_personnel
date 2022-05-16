@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+          border-collapse: collapse;
+          border: 1px solid black;
+        }
+
+        th, td {
+          padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Отдел</th>
+            <th>Должность</th>
+            <th>Минимальное количество</th>
+            <th>Текущее количество</th>
+            <th>Максимальное количество</th>
+            <th>Заявка</th>
+        </tr>
+
+        {% for item in query_results %}
+            <tr>
+                <td>{{ item.department.department_name }}</td>
+                <td>{{ item.position }}</td>
+                <td>{{ item.MIN_PERSON }}</td>
+                <td>{{ item.count_person }}</td>
+                <td>{{ item.MAX_PERSON }}</td>
+                <td><a href="{% url 'departments:promotion' item.pk %}">{{ item.pk }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

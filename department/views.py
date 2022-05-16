@@ -5,7 +5,11 @@ from django.views.generic import ListView
 from .models import Positions
 
 # scripts
-from .scripts.filters import get_profile_promotions, profile_promotions_list
+from .scripts.filters import (
+    get_profile_promotions,
+    profile_promotions_list,
+    promotion_list,
+)
 
 
 class TableView(ListView):
@@ -20,17 +24,29 @@ def promotion_position(request, pk):
     profiles = get_profile_promotions(position)
     profile_list = profile_promotions_list(profiles)
 
-    to_promotion = set()
+    to_promotion = promotion_list(
+        position.MAX_PERSON, position.count_person, profile_list
+    )
 
-    for _ in range(int((position.MAX_PERSON / 2)) - position.count_person):
-        if profile_list[0] not in to_promotion:
-            to_promotion.add(profile_list.pop(0))
-        else:
-            if profile_list[1] not in to_promotion:
-                to_promotion.add(profile_list.pop(0))
+    for employee in to_promotion:
+        previously_pos = Positions.objects.get(position=employee.position)
+        previously_pos.count_person -= 1
+        previously_pos.save()
+
+        new_pos = position
+
+        employee.position = new_pos
+        employee.save()
+
+        new_pos.count_person += 1
+        new_pos.save()
 
     return render(
         request,
         "departments/table2.html",
-        context={"query_results": profiles.items(), "choose": to_promotion},
+        context={
+            "query_results": profiles.items(),
+            "choose": to_promotion,
+            "new_pos": position.position,
+        },
     )
