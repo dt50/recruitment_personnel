@@ -27,6 +27,7 @@ urlpatterns = [
         include("quizes.urls"),
     ),
     path("profile/", include("profiles.urls")),
+    path('department/', include('department.urls'))
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

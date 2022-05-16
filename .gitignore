@@ -6,3 +6,19 @@
 __pycache__/
 
 *.sqlite3
+
+company_archive/fake_photos/
+
+company_archive/.DS_Store
+
+department/migrations/
+
+profiles/migrations/
+
+media/personnel_photos/
+
+templates/profiles/.DS_Store
+
+templates/.DS_Store
+
+.DS_Store

@@ -71,5 +71,5 @@ def generate_person(count=1000):
 
 
 if __name__ == "__main__":
-    generate_person(100)
+    generate_person(20)
 
