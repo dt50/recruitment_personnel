@@ -10,7 +10,7 @@ from department.models import Departments, Positions
 
 import sqlite3
 from datetime import datetime
-from random import choice
+from random import choice, randint
 
 # from PIL import Image
 from django.core.files.images import ImageFile
@@ -56,6 +56,7 @@ def post_save_create_profile(sender, instance, created, **kwargs):
 
             dep = Departments.objects.get(pk=1)
             pos = choice(Positions.objects.all())
+            _seniority = randint(0, info[4] - 20)
 
             profile = Profile.objects.create(
                 user=instance,
@@ -79,6 +80,11 @@ def post_save_create_profile(sender, instance, created, **kwargs):
                 city=info[17],
                 department=dep,
                 position=pos,
+                seniority=_seniority,
+                company_seniority=randint(0, _seniority),
+                specialized_education=randint(0, 1),
+                additional_courses=randint(0, 200),
+                reprimands=randint(0, 2),
             )
             profile.photo.save(
                 info[18],

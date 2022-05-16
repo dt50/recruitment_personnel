@@ -12,35 +12,48 @@ from datetime import datetime
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
+
     last_name = models.CharField(max_length=20)
     first_name = models.CharField(max_length=30)
     father_name = models.CharField(max_length=30)
-    
+
     date_of_birth = models.DateField(default=datetime.now)
     years_old = models.IntegerField(default=0)
-    
+
     phone = PhoneNumberField(default="Phone number")
     login = models.CharField(max_length=30, default="login")
     email = models.EmailField(default="Mail address")
-    
+
     pasportNum = models.CharField(max_length=15, default="Pasport num")
     pasportCode = models.CharField(max_length=15, default="Pasport code")
     pasportOtd = models.CharField(max_length=50, default="Pasport otd")
     pasportDate = models.CharField(max_length=15, default="Pasport date")
-    
+
     inn_fiz = models.CharField(max_length=15, default="inn")
     oms = models.CharField(max_length=16, default="oms")
-    
+
     address = models.CharField(max_length=50, default="Address")
     country = models.CharField(max_length=50, default="Country")
     region = models.CharField(max_length=50, default="Region")
     city = models.CharField(max_length=50, default="City")
-    
+
     photo = models.ImageField(upload_to="personnel_photos")
 
-    department = models.ForeignKey(Departments, on_delete=models.CASCADE, null=True, blank=True)
-    position = models.ForeignKey(Positions, on_delete=models.CASCADE, null=True, blank=True)
+    department = models.ForeignKey(
+        Departments, on_delete=models.CASCADE, null=True, blank=True
+    )
+    position = models.ForeignKey(
+        Positions, on_delete=models.CASCADE, null=True, blank=True
+    )
+
+    seniority = models.IntegerField(default=0)
+    company_seniority = models.IntegerField(default=0)
+    specialized_education = models.BooleanField(default=False)
+    additional_courses = models.IntegerField(
+        help_text="Часы прохождения дополнительных курсов", default=0
+    )
+    reprimands = models.IntegerField(default=0)
+
     if_dismissed = models.BooleanField(default=False)
 
     def __str__(self):

@@ -1,15 +1,36 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views.generic import ListView
+
+# models
 from .models import Positions
 
-# Create your views here.
+# scripts
+from .scripts.filters import get_profile_promotions, profile_promotions_list
 
 
-def table_view(request):
-    poses = Positions.objects.filter(count_person__lt=100)
-    name = []
-    count = []
-    for i in range(len(poses)):
-        name.append(poses[i].position)
-        count.append(poses[i].count_person)
-    return HttpResponse(f'Должность {name}\n Кол-во {count}')
+class TableView(ListView):
+    template_name = "departments/table.html"
+    queryset = Positions.objects.filter(count_person__lt=12)
+    context_object_name = "query_results"
+
+
+def promotion_position(request, pk):
+    position = Positions.objects.get(pk=pk)
+
+    profiles = get_profile_promotions(position)
+    profile_list = profile_promotions_list(profiles)
+
+    to_promotion = set()
+
+    for _ in range(int((position.MAX_PERSON / 2)) - position.count_person):
+        if profile_list[0] not in to_promotion:
+            to_promotion.add(profile_list.pop(0))
+        else:
+            if profile_list[1] not in to_promotion:
+                to_promotion.add(profile_list.pop(0))
+
+    return render(
+        request,
+        "departments/table2.html",
+        context={"query_results": profiles.items(), "choose": to_promotion},
+    )
