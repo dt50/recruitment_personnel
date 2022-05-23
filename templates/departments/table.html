@@ -1,21 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style type="text/css">
-        table {
-          border-collapse: collapse;
-          border: 1px solid black;
-        }
+{% extends "base.html" %}
+{% block title %}
+<title>Title</title>
 
-        th, td {
-          padding: 8px;
-        }
-    </style>
-</head>
-<body>
-    <table>
+{% endblock %}
+
+{% block scripts %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+    <div class="panel-body table-responsive">
+    <table class="table">
         <tr>
             <th>Отдел</th>
             <th>Должность</th>
@@ -32,10 +35,13 @@
                 <td>{{ item.MIN_PERSON }}</td>
                 <td>{{ item.count_person }}</td>
                 <td>{{ item.MAX_PERSON }}</td>
-                <td><a href="{% url 'departments:promotion' item.pk %}">{{ item.pk }}</a></td>
+                <td>
+                    <ul class="action-list">
+                        <li><a href="{% url 'departments:promotion' item.pk %}"><i class="fa fa-users"></i></a></li>
+                    </ul>
+                </td>
             </tr>
         {% endfor %}
     </table>
-
-</body>
-</html>
+    </div>
+{% endblock %}

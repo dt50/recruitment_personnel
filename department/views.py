@@ -11,6 +11,8 @@ from .scripts.filters import (
     promotion_list,
 )
 
+import itertools
+
 
 class TableView(ListView):
     template_name = "departments/table.html"
@@ -45,7 +47,6 @@ def promotion_position(request, pk):
         request,
         "departments/table2.html",
         context={
-            "query_results": profiles.items(),
             "choose": to_promotion,
             "new_pos": position.position,
         },

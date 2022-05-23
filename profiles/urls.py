@@ -19,4 +19,3 @@ urlpatterns = [
     path("profiles/", ProfilesList.as_view(), name='profiles_list'),
     path('profile/<int:pk>/', ProfileDetail.as_view(), name='profile_detail')
 ]
-# next_page=reverse_lazy("quizes:main-view")

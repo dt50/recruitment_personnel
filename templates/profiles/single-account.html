@@ -1,28 +1,11 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>Просмотр Аккаунта</title>
-</head>
-<body>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top shadow">
-        <div class="container navbar-container"><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse me-auto" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Главная</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">Логин</a></li>
-                    <li class="nav-item"><a class="nav-link" href="accounts.html">Пользователи</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">О Сайте</a></li>
-                </ul>
-            </div>
-            <!--a(href="login.html").login-button//button(type="submit").align-self-start.btn.btn-primary Войти-->
-            {% if user.is_authenticated %}
-                <div class="current-user ms-auto">{{ user }}<button class="btn btn-dark ms-3" type="submit">Выйти</button></div>
-            {% endif %}
-        </div>
-    </nav>
+
+{% block title %}
+<title>Просмотр Аккаунта</title>
+{% endblock %}
+
+{% block content %}
     <div class="p-3"></div>
     <div class="container border my-5 col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-7">
         <div class="row">
@@ -56,7 +39,4 @@
         </div>
     </div>
     <div></div>
-</body>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-</html>
+{% endblock %}
